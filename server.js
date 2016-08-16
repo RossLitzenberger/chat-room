@@ -11,6 +11,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 io.on('connection', function(socket) {
   console.log('new connection made');
+  //Show all users when first logged on
+  socket.on('get-users', function() {
+    socket.emit('all-users', users);
+  });
+
+  // When new socket joins
   socket.on('join', function(data) {
     console.log(data);
     console.log(users);
