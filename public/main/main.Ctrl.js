@@ -16,6 +16,23 @@
     var nickname = $scope.mynickname;
     socket.emit('get-users');
 
+    $scope.joinPrivate = function(){
+      socket.emit('join-private', {
+        nickname: nickname
+      });
+      console.log('private room joined!');
+    };
+
+    $scope.groupPm = function(){
+      socket.emit('private-chat', {
+        message: 'hello everybody!'
+      });
+    };
+
+    socket.on('show-message', function(data){
+      console.log(data);
+    });
+
     socket.on('all-users', function(data) {
       console.log(data);
       $scope.users = data.filter(function(item) {
